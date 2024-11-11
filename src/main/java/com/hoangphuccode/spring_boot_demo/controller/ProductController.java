@@ -26,21 +26,23 @@ public class ProductController {
     }
 
     @GetMapping("/products/search")
-    public String getProductsByName(@RequestParam String name, Model model){
+    public String getProductsByName(Model model, @RequestParam("name") String name){
         List<ProductEntity> productEntities = this.productService.getProductsByName(name);
         model.addAttribute("products", productEntities);
         return "product/product-search";
     }
 
     @GetMapping("/products/search/missed")
-    public String getProductsByMissedName(@RequestParam String missedName, Model model){
+    public String getProductsByMissedName(Model model, @RequestParam("name") String missedName){
+        System.out.println(missedName);
         List<ProductEntity> productEntities =  this.productService.getProductsByMissedName(missedName);
         model.addAttribute("products", productEntities);
+        model.addAttribute("missedName", missedName);
         return "product/product-search-missed";
     }
 
     @GetMapping("/products/search/price")
-    public String getProductsByPriceGreaterThan(@RequestParam BigDecimal price, Model model){
+    public String getProductsByPriceGreaterThan(Model model, @RequestParam("price") BigDecimal price){
         List<ProductEntity> productEntities = this.productService.getProductsByPriceGreaterThan(price);
         model.addAttribute("products", productEntities);
         return "product/product-search-price";
@@ -52,11 +54,35 @@ public class ProductController {
         return "product/product-form";
     }
 
-    @PostMapping("products/create")
-    public String showProductForm(@ModelAttribute ProductEntity productEntity, Model model) {
+    @PostMapping("/products/create")
+    public String showProductForm(@ModelAttribute("product") ProductEntity productEntity) {
         this.productService.saveOrUpdateProduct(productEntity);
-        model.addAttribute("product", productEntity);
         return "product/product-success";
+    }
+
+    @GetMapping("/products/delete")
+    public String showFormDeleteProduct(Model model) {
+        model.addAttribute("product", new ProductEntity());
+        return "product/product-delete";
+    }
+
+    @DeleteMapping("/products/delete/{id}")
+    public String deleteProduct(@PathVariable("id") Long id) {
+        this.productService.deleteProductById(id);
+        return "redirect:/v1/products";
+    }
+
+    @GetMapping("/products/update")
+    public String showFormUpdateProduct(Model model) {
+        model.addAttribute("product", new ProductEntity());
+        return "product/product-update";
+    }
+
+    @PutMapping("/products/update/{id}")
+    public String updateProduct(@PathVariable("id") Long id, @ModelAttribute("product") ProductEntity product) {
+        product.setId(id);
+        productService.saveOrUpdateProduct(product);
+        return "redirect:/v1/products";
     }
 
 

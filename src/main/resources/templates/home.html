@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <a href="/v1/products">Get all products</a> <br>
+    <hr>
+
+    <form th:action="@{/v1/products/search}" method="get">
+        <input type="text" name="name" value="Snack">
+        <button type="submit">Search product by name</button>
+    </form>
+    <hr>
+
+    <form th:action="@{/v1/products/search/missed}" method="get">
+        <input type="text" name="name" value="Snack">
+        <button type="submit">Search products by missed name</button>
+    </form>
+    <hr>
+
+    <form th:action="@{/v1/products/search/price}" method="get">
+        <input type="number" name="price">
+        <button type="submit">Search products by price</button>
+    </form>
+    <hr>
+
+
+
+</body>
+</html>

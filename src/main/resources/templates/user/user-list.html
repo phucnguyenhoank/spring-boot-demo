@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User List</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+<h1>List of Users</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Grade</th>
+        <th>Address</th>
+    </tr>
+    <tr th:each="user : ${userPage.content}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.grade}"></td>
+        <td th:text="${user.address}"></td>
+    </tr>
+</table>
+<div>
+    <!-- Pagination controls -->
+    <span th:if="${userPage.hasPrevious()}">
+        <a th:href="@{/v1/getAll(page=${userPage.number - 1}, size=${userPage.size})}">Previous</a>
+    </span>
+    <span th:if="${userPage.hasNext()}">
+        <a th:href="@{/v1/getAll(page=${userPage.number + 1}, size=${userPage.size})}">Next</a>
+    </span>
+</div>
+</body>
+</html>
