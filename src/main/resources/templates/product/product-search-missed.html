@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>Search Missed Name</title>
     </head>
     <body>
-        <h1>Search Results for "<span th:text="${param.missedName}"></span>"</h1>
+        <h1>Search Results for <span th:text="${missedName}"> Missed Name</span> </h1>
         <ul>
             <li th:each="product: ${products}">
                 <span th:text="${product.name}">Product Name</span> -

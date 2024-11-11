@@ -14,5 +14,5 @@ public interface ProductService {
     List<ProductEntity> getProductsByMissedName(String missedName);
     List<ProductEntity> getProductsByPriceGreaterThan(BigDecimal price);
     ProductEntity saveOrUpdateProduct(ProductEntity productEntity);
-    void deleteProduct(Long productId);
+    void deleteProductById(Long productId);
 }
